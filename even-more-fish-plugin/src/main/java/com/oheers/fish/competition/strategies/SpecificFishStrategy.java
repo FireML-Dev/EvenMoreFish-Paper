@@ -2,7 +2,7 @@ package com.oheers.fish.competition.strategies;
 
 
 import com.oheers.fish.EvenMoreFish;
-import com.oheers.fish.api.adapter.AbstractMessage;
+import com.oheers.fish.adapter.PaperMessage;
 import com.oheers.fish.competition.Competition;
 import com.oheers.fish.competition.CompetitionEntry;
 import com.oheers.fish.competition.CompetitionStrategy;
@@ -53,9 +53,9 @@ public class SpecificFishStrategy implements CompetitionStrategy {
     }
 
     @Override
-    public @NotNull AbstractMessage getTypeFormat(@NotNull Competition competition, ConfigMessage configMessage) {
+    public @NotNull PaperMessage getTypeFormat(@NotNull Competition competition, ConfigMessage configMessage) {
         Fish selectedFish = competition.getSelectedFish();
-        AbstractMessage message = CompetitionStrategy.super.getTypeFormat(competition, configMessage);
+        PaperMessage message = CompetitionStrategy.super.getTypeFormat(competition, configMessage);
         message.setAmount(Integer.toString(competition.getNumberNeeded()));
         if (selectedFish != null) {
             message.setRarityColour(selectedFish.getRarity().getColour());
@@ -66,7 +66,7 @@ public class SpecificFishStrategy implements CompetitionStrategy {
     }
 
     @Override
-    public AbstractMessage getBeginMessage(@NotNull Competition competition, CompetitionType type) {
+    public PaperMessage getBeginMessage(@NotNull Competition competition, CompetitionType type) {
         return getTypeFormat(competition, ConfigMessage.COMPETITION_START);
     }
 

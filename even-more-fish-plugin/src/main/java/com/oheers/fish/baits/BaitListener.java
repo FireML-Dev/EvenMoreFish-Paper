@@ -1,7 +1,7 @@
 package com.oheers.fish.baits;
 
 import com.oheers.fish.EvenMoreFish;
-import com.oheers.fish.api.adapter.AbstractMessage;
+import com.oheers.fish.adapter.PaperMessage;
 import com.oheers.fish.config.MainConfig;
 import com.oheers.fish.config.messages.ConfigMessage;
 import com.oheers.fish.exceptions.MaxBaitReachedException;
@@ -75,7 +75,7 @@ public class BaitListener implements Listener {
             result = exception.getRecoveryResult();
         } catch (MaxBaitReachedException exception) {
             result = exception.getRecoveryResult();
-            AbstractMessage message = ConfigMessage.BAITS_MAXED_ON_ROD.getMessage();
+            PaperMessage message = ConfigMessage.BAITS_MAXED_ON_ROD.getMessage();
             message.setBaitTheme(bait.getTheme());
             message.setBait(bait.getName());
             message.send(event.getWhoClicked());

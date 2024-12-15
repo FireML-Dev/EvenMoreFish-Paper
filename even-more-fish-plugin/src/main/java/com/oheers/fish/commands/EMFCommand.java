@@ -5,7 +5,7 @@ import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import com.oheers.fish.EvenMoreFish;
-import com.oheers.fish.api.adapter.AbstractMessage;
+import com.oheers.fish.adapter.PaperMessage;
 import com.oheers.fish.api.economy.Economy;
 import com.oheers.fish.competition.Competition;
 import com.oheers.fish.config.messages.ConfigMessage;
@@ -28,7 +28,7 @@ public class EMFCommand extends BaseCommand {
     @Description("%desc_general_next")
     @CommandPermission(UserPerms.NEXT)
     public void onNext(final CommandSender sender) {
-        AbstractMessage message = Competition.getNextCompetitionMessage();
+        PaperMessage message = Competition.getNextCompetitionMessage();
         message.prependMessage(PrefixType.DEFAULT.getPrefix());
         message.send(sender);
     }
@@ -54,7 +54,7 @@ public class EMFCommand extends BaseCommand {
     public void onHelp(final CommandHelp help, final CommandSender sender) {
         ConfigMessage.HELP_GENERAL_TITLE.getMessage().send(sender);
         help.getHelpEntries().forEach(helpEntry -> {
-            AbstractMessage helpMessage = ConfigMessage.HELP_FORMAT.getMessage();
+            PaperMessage helpMessage = ConfigMessage.HELP_FORMAT.getMessage();
             helpMessage.setVariable("{command}", "/" + helpEntry.getCommand());
             helpMessage.setVariable("{description}", helpEntry.getDescription());
             helpMessage.send(sender);
@@ -93,7 +93,7 @@ public class EMFCommand extends BaseCommand {
 
         if (onlinePlayer == null) {
             if (!(sender instanceof Player player)) {
-                EvenMoreFish.getAdapter().createMessage("&cYou must specify a player when running from console.").send(sender);
+                EvenMoreFish.getInstance().createMessage("&cYou must specify a player when running from console.").send(sender);
                 return;
             }
             new SellGUI(player, SellGUI.SellState.NORMAL, null).open();
@@ -102,7 +102,7 @@ public class EMFCommand extends BaseCommand {
 
         if (sender.hasPermission(AdminPerms.ADMIN)) {
             new SellGUI(onlinePlayer.player, SellGUI.SellState.NORMAL, null).open();
-            AbstractMessage message = ConfigMessage.ADMIN_OPEN_FISH_SHOP.getMessage();
+            PaperMessage message = ConfigMessage.ADMIN_OPEN_FISH_SHOP.getMessage();
             message.setPlayer(onlinePlayer.player);
             message.send(sender);
         }

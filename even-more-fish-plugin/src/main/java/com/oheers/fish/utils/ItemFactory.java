@@ -2,7 +2,7 @@ package com.oheers.fish.utils;
 
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.FishUtils;
-import com.oheers.fish.api.adapter.AbstractMessage;
+import com.oheers.fish.adapter.PaperMessage;
 import com.oheers.fish.api.addons.exceptions.IncorrectAssignedMaterialException;
 import com.oheers.fish.api.addons.exceptions.NoPrefixException;
 import com.oheers.fish.config.MainConfig;
@@ -553,7 +553,7 @@ public class ItemFactory {
         ItemMeta meta = product.getItemMeta();
         if (meta == null) return;
 
-        AbstractMessage lore = EvenMoreFish.getAdapter().createMessage(loreConfig);
+        PaperMessage lore = EvenMoreFish.getInstance().createMessage(loreConfig);
         lore.setVariables(replacements);
 
         meta.setLore(lore.getLegacyListMessage());
@@ -576,7 +576,7 @@ public class ItemFactory {
                 if (displayName.isEmpty()) {
                     meta.setDisplayName("");
                 } else {
-                    AbstractMessage display = EvenMoreFish.getAdapter().createMessage(displayName);
+                    PaperMessage display = EvenMoreFish.getInstance().createMessage(displayName);
                     display.setVariables(replacements);
                     meta.setDisplayName(display.getLegacyMessage());
                 }

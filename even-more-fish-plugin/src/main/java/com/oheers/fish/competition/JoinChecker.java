@@ -1,7 +1,7 @@
 package com.oheers.fish.competition;
 
 import com.oheers.fish.EvenMoreFish;
-import com.oheers.fish.api.adapter.AbstractMessage;
+import com.oheers.fish.adapter.PaperMessage;
 import com.oheers.fish.config.MainConfig;
 import com.oheers.fish.config.messages.ConfigMessage;
 import com.oheers.fish.database.DataManager;
@@ -70,7 +70,7 @@ public class JoinChecker implements Listener {
         Competition activeComp = Competition.getCurrentlyActive();
         if (activeComp != null) {
             activeComp.getStatusBar().addPlayer(event.getPlayer());
-            AbstractMessage startMessage = activeComp.getStartMessage();
+            PaperMessage startMessage = activeComp.getStartMessage();
             if (startMessage != null) {
                 startMessage.setMessage(ConfigMessage.COMPETITION_JOIN.getMessage());
                 EvenMoreFish.getScheduler().runTaskLater(() -> startMessage.send(event.getPlayer()), 20 * 3);

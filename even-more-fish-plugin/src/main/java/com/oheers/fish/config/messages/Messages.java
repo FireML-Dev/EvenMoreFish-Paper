@@ -1,7 +1,7 @@
 package com.oheers.fish.config.messages;
 
 import com.oheers.fish.EvenMoreFish;
-import com.oheers.fish.api.adapter.AbstractMessage;
+import com.oheers.fish.adapter.PaperMessage;
 import com.oheers.fish.config.ConfigBase;
 import com.oheers.fish.config.MainConfig;
 import dev.dejvokep.boostedyaml.dvs.versioning.BasicVersioning;
@@ -21,7 +21,7 @@ public class Messages extends ConfigBase {
     }
 
     public String getSTDPrefix() {
-        AbstractMessage message = EvenMoreFish.getAdapter().createMessage("");
+        PaperMessage message = EvenMoreFish.getInstance().createMessage("");
         message.prependMessage(PrefixType.DEFAULT.getPrefix());
         message.appendString("&r");
         return message.getLegacyMessage();

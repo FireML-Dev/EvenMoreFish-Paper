@@ -5,8 +5,7 @@ import co.aikar.commands.InvalidCommandArgument;
 import co.aikar.commands.PaperCommandManager;
 import com.github.Anon8281.universalScheduler.UniversalScheduler;
 import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskScheduler;
-import com.oheers.fish.adapter.PaperAdapter;
-import com.oheers.fish.adapter.SpigotAdapter;
+import com.oheers.fish.adapter.PaperMessage;
 import com.oheers.fish.addons.AddonManager;
 import com.oheers.fish.addons.DefaultAddons;
 import com.oheers.fish.api.EMFAPI;
@@ -133,7 +132,6 @@ public class EvenMoreFish extends EMFPlugin {
         EMFPlugin.setInstance(this);
         instance = this;
         scheduler = UniversalScheduler.getScheduler(this);
-        platformAdapter = loadAdapter();
 
         this.api = new EMFAPI();
 
@@ -794,22 +792,20 @@ public class EvenMoreFish extends EMFPlugin {
         return toggleValue.equals("true");
     }
 
-    private static PlatformAdapter loadAdapter() {
-        // Class names taken from PaperLib's initialize method
-        if (FishUtils.classExists(("com.destroystokyo.paper.PaperConfig"))) {
-            return new PaperAdapter();
-        } else if (FishUtils.classExists("io.papermc.paper.configuration.Configuration")) {
-            return new PaperAdapter();
-        }
-        return new SpigotAdapter();
+    /**
+     * Translates the provided message into a legacy string.
+     * @return The provided message as a legacy string.
+     */
+    public String translateColorCodes(@NotNull String message) {
+        return createMessage(message).getLegacyMessage();
     }
 
-    public static @NotNull PlatformAdapter getAdapter() {
-        if (platformAdapter == null) {
-            instance.getLogger().warning("No PlatformAdapter found! Defaulting to SpigotAdapter.");
-            platformAdapter = new SpigotAdapter();
-        }
-        return platformAdapter;
+    public PaperMessage createMessage(@NotNull String message) {
+        return new PaperMessage(message);
+    }
+
+    public PaperMessage createMessage(@NotNull List<String> messageList) {
+        return new PaperMessage(messageList);
     }
 
 }

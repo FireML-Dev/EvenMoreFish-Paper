@@ -108,13 +108,13 @@ public class GUIUtils {
         if (section == null) {
             return new InventoryGui(
                     EvenMoreFish.getInstance(),
-                    EvenMoreFish.getAdapter().createMessage("&cBroken GUI! Please tell an admin!").getLegacyMessage(),
+                    EvenMoreFish.getInstance().createMessage("&cBroken GUI! Please tell an admin!").getLegacyMessage(),
                     new String[0]
             );
         }
         return new InventoryGui(
                 EvenMoreFish.getInstance(),
-                EvenMoreFish.getAdapter().createMessage(section.getString("title", "EvenMoreFish Inventory")).getLegacyMessage(),
+                EvenMoreFish.getInstance().createMessage(section.getString("title", "EvenMoreFish Inventory")).getLegacyMessage(),
                 section.getStringList("layout").toArray(new String[0])
         );
     }

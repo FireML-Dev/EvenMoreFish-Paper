@@ -1,6 +1,6 @@
 package com.oheers.fish.competition.strategies;
 
-import com.oheers.fish.api.adapter.AbstractMessage;
+import com.oheers.fish.adapter.PaperMessage;
 import com.oheers.fish.competition.Competition;
 import com.oheers.fish.competition.CompetitionEntry;
 import com.oheers.fish.competition.CompetitionStrategy;
@@ -28,14 +28,14 @@ public class LargestTotalStrategy implements CompetitionStrategy {
     }
 
     @Override
-    public AbstractMessage getSingleConsoleLeaderboardMessage(@NotNull AbstractMessage message, @NotNull CompetitionEntry entry) {
+    public PaperMessage getSingleConsoleLeaderboardMessage(@NotNull PaperMessage message, @NotNull CompetitionEntry entry) {
         message.setMessage(ConfigMessage.LEADERBOARD_LARGEST_TOTAL.getMessage());
         message.setAmount(getDecimalFormat().format(entry.getValue()));
         return message;
     }
 
     @Override
-    public AbstractMessage getSinglePlayerLeaderboard(@NotNull AbstractMessage message, @NotNull CompetitionEntry entry) {
+    public PaperMessage getSinglePlayerLeaderboard(@NotNull PaperMessage message, @NotNull CompetitionEntry entry) {
         message.setMessage(ConfigMessage.LEADERBOARD_LARGEST_TOTAL.getMessage());
         message.setAmount(getDecimalFormat().format(entry.getValue()));
         return message;

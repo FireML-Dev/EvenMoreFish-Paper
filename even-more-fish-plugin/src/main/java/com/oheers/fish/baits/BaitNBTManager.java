@@ -2,7 +2,7 @@ package com.oheers.fish.baits;
 
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.FishUtils;
-import com.oheers.fish.api.adapter.AbstractMessage;
+import com.oheers.fish.adapter.PaperMessage;
 import com.oheers.fish.config.BaitFile;
 import com.oheers.fish.exceptions.MaxBaitReachedException;
 import com.oheers.fish.exceptions.MaxBaitsReachedException;
@@ -375,7 +375,7 @@ public class BaitNBTManager {
 
                 for (String bait : rodNBT.split(",")) {
                     baitCount++;
-                    AbstractMessage message = EvenMoreFish.getAdapter().createMessage(BaitFile.getInstance().getBaitFormat());
+                    PaperMessage message = EvenMoreFish.getInstance().createMessage(BaitFile.getInstance().getBaitFormat());
                     message.setAmount(bait.split(":")[1]);
                     message.setBait(getBaitFormatted(bait.split(":")[0]));
                     lore.add(message.getLegacyMessage());
@@ -387,7 +387,7 @@ public class BaitNBTManager {
                     }
                 }
             } else {
-                AbstractMessage message = EvenMoreFish.getAdapter().createMessage(lineAddition);
+                PaperMessage message = EvenMoreFish.getInstance().createMessage(lineAddition);
                 message.setCurrentBaits(Integer.toString(getNumBaitsApplied(itemStack)));
                 message.setMaxBaits(Integer.toString(BaitFile.getInstance().getMaxBaits()));
                 lore.add(message.getLegacyMessage());

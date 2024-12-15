@@ -69,10 +69,10 @@ public class ItemBuilder {
             return stack;
         }
         if (this.display != null) {
-            meta.setDisplayName(EvenMoreFish.getAdapter().createMessage(this.display).getLegacyMessage());
+            meta.setDisplayName(EvenMoreFish.getInstance().createMessage(this.display).getLegacyMessage());
         }
         if (!this.lore.isEmpty()) {
-            meta.setLore(EvenMoreFish.getAdapter().createMessage(this.lore).getLegacyListMessage());
+            meta.setLore(EvenMoreFish.getInstance().createMessage(this.lore).getLegacyListMessage());
         }
         stack.setItemMeta(meta);
         if (this.glowing) {

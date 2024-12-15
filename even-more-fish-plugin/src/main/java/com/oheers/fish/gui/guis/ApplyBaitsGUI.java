@@ -2,7 +2,7 @@ package com.oheers.fish.gui.guis;
 
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.FishUtils;
-import com.oheers.fish.api.adapter.AbstractMessage;
+import com.oheers.fish.adapter.PaperMessage;
 import com.oheers.fish.baits.ApplicationResult;
 import com.oheers.fish.baits.Bait;
 import com.oheers.fish.baits.BaitManager;
@@ -92,7 +92,7 @@ public class ApplyBaitsGUI implements EMFGUI {
                 EvenMoreFish.getInstance().incrementMetricBaitsApplied(item.getAmount());
             // When a specific bait is maxed.
             } catch (MaxBaitReachedException exception) {
-                AbstractMessage message = ConfigMessage.BAITS_MAXED_ON_ROD.getMessage();
+                PaperMessage message = ConfigMessage.BAITS_MAXED_ON_ROD.getMessage();
                 message.setBaitTheme(bait.getTheme());
                 message.setBait(bait.getName());
                 message.send(this.player);

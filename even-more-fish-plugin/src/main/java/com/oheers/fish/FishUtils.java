@@ -2,7 +2,7 @@ package com.oheers.fish;
 
 import br.net.fabiozumbi12.RedProtect.Bukkit.RedProtect;
 import br.net.fabiozumbi12.RedProtect.Bukkit.Region;
-import com.oheers.fish.api.adapter.AbstractMessage;
+import com.oheers.fish.adapter.PaperMessage;
 import com.oheers.fish.competition.Competition;
 import com.oheers.fish.competition.configs.CompetitionFile;
 import com.oheers.fish.config.MainConfig;
@@ -240,7 +240,7 @@ public class FishUtils {
     }
 
     public static String translateColorCodes(String message) {
-        return EvenMoreFish.getAdapter().translateColorCodes(message);
+        return EvenMoreFish.getInstance().translateColorCodes(message);
     }
 
     //gets the item with a custom texture
@@ -297,20 +297,20 @@ public class FishUtils {
         long seconds = timeLeft % 60;
 
         if (hours > 0) {
-            AbstractMessage message = ConfigMessage.BAR_HOUR.getMessage();
+            PaperMessage message = ConfigMessage.BAR_HOUR.getMessage();
             message.setVariable("{hour}", String.valueOf(hours));
             returning += message.getLegacyMessage() + " ";
         }
 
         if (minutes > 0) {
-            AbstractMessage message = ConfigMessage.BAR_MINUTE.getMessage();
+            PaperMessage message = ConfigMessage.BAR_MINUTE.getMessage();
             message.setVariable("{minute}", String.valueOf(minutes));
             returning += message.getLegacyMessage() + " ";
         }
 
         // Shows remaining seconds if seconds > 0 or hours and minutes are 0, e.g. "1 minutes and 0 seconds left" and "5 seconds left"
         if (seconds > 0 || (minutes == 0 && hours == 0)) {
-            AbstractMessage message = ConfigMessage.BAR_SECOND.getMessage();
+            PaperMessage message = ConfigMessage.BAR_SECOND.getMessage();
             message.setVariable("{second}", String.valueOf(seconds));
             returning += message.getLegacyMessage() + " ";
         }
@@ -335,7 +335,7 @@ public class FishUtils {
         return returning;
     }
 
-    public static void broadcastFishMessage(AbstractMessage message, Player referencePlayer, boolean actionBar) {
+    public static void broadcastFishMessage(PaperMessage message, Player referencePlayer, boolean actionBar) {
 
         String formatted = message.getLegacyMessage();
         Competition activeComp = Competition.getCurrentlyActive();

@@ -11,7 +11,7 @@ public class MessageRewardType implements RewardType {
 
     @Override
     public void doReward(@NotNull Player player, @NotNull String key, @NotNull String value, Location hookLocation) {
-        EvenMoreFish.getAdapter().createMessage(value).send(player);
+        EvenMoreFish.getInstance().createMessage(value).send(player);
     }
 
     @Override

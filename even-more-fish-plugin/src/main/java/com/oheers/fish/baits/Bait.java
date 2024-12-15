@@ -2,7 +2,7 @@ package com.oheers.fish.baits;
 
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.FishUtils;
-import com.oheers.fish.api.adapter.AbstractMessage;
+import com.oheers.fish.adapter.PaperMessage;
 import com.oheers.fish.config.BaitFile;
 import com.oheers.fish.config.messages.ConfigMessage;
 import com.oheers.fish.fishing.items.Fish;
@@ -117,11 +117,11 @@ public class Bait {
             if (lineAddition.equals("{boosts}")) {
 
                 if (!rarityList.isEmpty()) {
-                    AbstractMessage message;
+                    PaperMessage message;
                     if (rarityList.size() > 1) {
-                        message = EvenMoreFish.getAdapter().createMessage(BaitFile.getInstance().getBoostRaritiesFormat());
+                        message = EvenMoreFish.getInstance().createMessage(BaitFile.getInstance().getBoostRaritiesFormat());
                     } else {
-                        message = EvenMoreFish.getAdapter().createMessage(BaitFile.getInstance().getBoostRarityFormat());
+                        message = EvenMoreFish.getInstance().createMessage(BaitFile.getInstance().getBoostRarityFormat());
                     }
                     message.setAmount(Integer.toString(rarityList.size()));
                     message.setBaitTheme(theme);
@@ -129,7 +129,7 @@ public class Bait {
                 }
 
                 if (!fishList.isEmpty()) {
-                    AbstractMessage message = EvenMoreFish.getAdapter().createMessage(BaitFile.getInstance().getBoostFishFormat());
+                    PaperMessage message = EvenMoreFish.getInstance().createMessage(BaitFile.getInstance().getBoostFishFormat());
                     message.setAmount(Integer.toString(fishList.size()));
                     message.setBaitTheme(theme);
                     lore.add(message.getLegacyMessage());
@@ -137,11 +137,11 @@ public class Bait {
 
             } else if (lineAddition.equals("{lore}")) {
                 BaitFile.getInstance().getLore(this.name).forEach(line -> {
-                    AbstractMessage message = EvenMoreFish.getAdapter().createMessage(line);
+                    PaperMessage message = EvenMoreFish.getInstance().createMessage(line);
                     lore.add(message.getLegacyMessage());
                 });
             } else {
-                AbstractMessage message = EvenMoreFish.getAdapter().createMessage(lineAddition);
+                PaperMessage message = EvenMoreFish.getInstance().createMessage(lineAddition);
                 message.setBaitTheme(theme);
                 lore.add(message.getLegacyMessage());
             }
@@ -215,7 +215,7 @@ public class Bait {
             return;
         }
 
-        AbstractMessage message = ConfigMessage.BAIT_USED.getMessage();
+        PaperMessage message = ConfigMessage.BAIT_USED.getMessage();
         message.setBait(this.name);
         message.setBaitTheme(this.theme);
         message.send(player);

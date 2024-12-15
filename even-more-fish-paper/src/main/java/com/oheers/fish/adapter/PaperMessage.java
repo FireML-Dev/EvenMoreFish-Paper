@@ -1,7 +1,5 @@
 package com.oheers.fish.adapter;
 
-import com.oheers.fish.api.adapter.AbstractMessage;
-import com.oheers.fish.api.adapter.PlatformAdapter;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -17,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.regex.Matcher;
 
-public class PaperMessage extends AbstractMessage {
+public class PaperMessage {
 
     private static final LegacyComponentSerializer legacySerializer = LegacyComponentSerializer.builder()
             .hexColors()
@@ -31,15 +29,14 @@ public class PaperMessage extends AbstractMessage {
     private boolean canSilent = false;
     private OfflinePlayer relevantPlayer;
 
-    protected PaperMessage(@NotNull String message, @NotNull PlatformAdapter platformAdapter) {
-        super(message, platformAdapter);
+    public PaperMessage(@NotNull String message) {
+        this.message = formatColours(message);
     }
 
-    protected PaperMessage(@NotNull List<String> messageList, @NotNull PlatformAdapter platformAdapter) {
-        super(messageList, platformAdapter);
+    public PaperMessage(@NotNull List<String> messageList) {
+        this.message = String.join("\n", messageList.stream().map(this::formatColours).toList());
     }
 
-    @Override
     public String formatColours(@NotNull String message) {
         message = ChatColor.translateAlternateColorCodes('&', message);
         message = message.replace("&#", "§#");
@@ -54,13 +51,11 @@ public class PaperMessage extends AbstractMessage {
         return message;
     }
 
-    @Override
     public void broadcast() {
         send(Bukkit.getConsoleSender());
         Bukkit.getOnlinePlayers().forEach(this::send);
     }
 
-    @Override
     public void send(@NotNull CommandSender target) {
         if (getRawMessage().isEmpty() || silentCheck()) {
             return;
@@ -84,12 +79,10 @@ public class PaperMessage extends AbstractMessage {
         return miniMessage.deserialize(getRawMessage());
     }
 
-    @Override
     public String getLegacyMessage() {
         return legacySerializer.serialize(getComponentMessage());
     }
 
-    @Override
     public void formatPlaceholderAPI() {
         if (!isPAPIEnabled()) {
             return;
@@ -113,7 +106,7 @@ public class PaperMessage extends AbstractMessage {
         this.message = formatColours(message);
     }
 
-    public void setMessage(@NotNull AbstractMessage message) {
+    public void setMessage(@NotNull PaperMessage message) {
         this.message = message.getRawMessage();
     }
 
@@ -176,7 +169,7 @@ public class PaperMessage extends AbstractMessage {
      * Adds the provided message to the end of this message.
      * @param message The message to append
      */
-    public void appendMessage(@NotNull AbstractMessage message) {
+    public void appendMessage(@NotNull PaperMessage message) {
         appendString(message.getRawMessage());
     }
 
@@ -192,9 +185,9 @@ public class PaperMessage extends AbstractMessage {
      * Adds the provided messages to the end of this message.
      * @param messages The messages to append
      */
-    public void appendMessageList(@NotNull List<AbstractMessage> messages) {
+    public void appendMessageList(@NotNull List<PaperMessage> messages) {
         StringBuilder newMessage = new StringBuilder(this.message);
-        for (AbstractMessage message : messages) {
+        for (PaperMessage message : messages) {
             newMessage.append(message.getRawMessage());
         }
         this.message = newMessage.toString();
@@ -212,7 +205,7 @@ public class PaperMessage extends AbstractMessage {
      * Adds the provided message to the start of this message.
      * @param message The message to prepend
      */
-    public void prependMessage(@NotNull AbstractMessage message) {
+    public void prependMessage(@NotNull PaperMessage message) {
         prependString(message.getRawMessage());
     }
 
@@ -228,12 +221,12 @@ public class PaperMessage extends AbstractMessage {
      * Adds the provided messages to the start of this message.
      * @param messages The messages to prepend
      */
-    public void prependMessageList(@NotNull List<AbstractMessage> messages) {
+    public void prependMessageList(@NotNull List<PaperMessage> messages) {
         StringBuilder newMessage = new StringBuilder();
-        for (AbstractMessage message : messages) {
+        for (PaperMessage message : messages) {
             newMessage.append(message.getRawMessage());
         }
-        this.message = newMessage.toString() + this.message;
+        this.message = newMessage + this.message;
     }
 
     /**
@@ -270,13 +263,6 @@ public class PaperMessage extends AbstractMessage {
      */
     public @Nullable OfflinePlayer getRelevantPlayer() {
         return this.relevantPlayer;
-    }
-
-    /**
-     * @return The PlatformAdapter that created this message instance.
-     */
-    public @NotNull PlatformAdapter getPlatformAdapter() {
-        return this.platformAdapter;
     }
 
     /**
