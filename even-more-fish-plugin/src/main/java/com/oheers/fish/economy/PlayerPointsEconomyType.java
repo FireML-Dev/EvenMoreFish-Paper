@@ -1,7 +1,7 @@
 package com.oheers.fish.economy;
 
 import com.oheers.fish.EvenMoreFish;
-import com.oheers.fish.config.messages.PaperMessage;
+import com.oheers.fish.config.messages.Message;
 import com.oheers.fish.api.economy.EconomyType;
 import com.oheers.fish.config.MainConfig;
 import org.black_ixx.playerpoints.PlayerPoints;
@@ -86,7 +86,7 @@ public class PlayerPointsEconomyType implements EconomyType {
         if (display == null) {
             display = "{amount} Player Point(s)";
         }
-        PaperMessage message = EvenMoreFish.getInstance().createMessage(display);
+        Message message = EvenMoreFish.getInstance().createMessage(display);
         message.setVariable("{amount}", String.valueOf(worth));
         return message.getLegacyMessage();
     }

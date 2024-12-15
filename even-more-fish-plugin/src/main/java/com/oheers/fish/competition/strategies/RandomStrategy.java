@@ -2,7 +2,7 @@ package com.oheers.fish.competition.strategies;
 
 
 import com.oheers.fish.EvenMoreFish;
-import com.oheers.fish.config.messages.PaperMessage;
+import com.oheers.fish.config.messages.Message;
 import com.oheers.fish.competition.Competition;
 import com.oheers.fish.competition.CompetitionEntry;
 import com.oheers.fish.competition.CompetitionStrategy;
@@ -29,22 +29,22 @@ public class RandomStrategy implements CompetitionStrategy {
     }
 
     @Override
-    public PaperMessage getSingleConsoleLeaderboardMessage(@NotNull PaperMessage message, @NotNull CompetitionEntry entry) {
+    public Message getSingleConsoleLeaderboardMessage(@NotNull Message message, @NotNull CompetitionEntry entry) {
         return randomType.getStrategy().getSingleConsoleLeaderboardMessage(message, entry);
     }
 
     @Override
-    public PaperMessage getBeginMessage(Competition competition, CompetitionType type) {
+    public Message getBeginMessage(Competition competition, CompetitionType type) {
         return randomType.getStrategy().getBeginMessage(competition, type);
     }
 
     @Override
-    public PaperMessage getSinglePlayerLeaderboard(@NotNull PaperMessage message, @NotNull CompetitionEntry entry) {
+    public Message getSinglePlayerLeaderboard(@NotNull Message message, @NotNull CompetitionEntry entry) {
         return randomType.getStrategy().getSinglePlayerLeaderboard(message, entry);
     }
 
     @Override
-    public @NotNull PaperMessage getTypeFormat(@NotNull Competition competition, ConfigMessage configMessage) {
+    public @NotNull Message getTypeFormat(@NotNull Competition competition, ConfigMessage configMessage) {
         return randomType.getStrategy().getTypeFormat(competition, configMessage);
     }
 

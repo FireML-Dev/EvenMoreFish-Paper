@@ -2,7 +2,7 @@ package com.oheers.fish.baits;
 
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.FishUtils;
-import com.oheers.fish.config.messages.PaperMessage;
+import com.oheers.fish.config.messages.Message;
 import com.oheers.fish.config.BaitFile;
 import com.oheers.fish.config.messages.ConfigMessage;
 import com.oheers.fish.fishing.items.Fish;
@@ -117,7 +117,7 @@ public class Bait {
             if (lineAddition.equals("{boosts}")) {
 
                 if (!rarityList.isEmpty()) {
-                    PaperMessage message;
+                    Message message;
                     if (rarityList.size() > 1) {
                         message = EvenMoreFish.getInstance().createMessage(BaitFile.getInstance().getBoostRaritiesFormat());
                     } else {
@@ -129,7 +129,7 @@ public class Bait {
                 }
 
                 if (!fishList.isEmpty()) {
-                    PaperMessage message = EvenMoreFish.getInstance().createMessage(BaitFile.getInstance().getBoostFishFormat());
+                    Message message = EvenMoreFish.getInstance().createMessage(BaitFile.getInstance().getBoostFishFormat());
                     message.setAmount(Integer.toString(fishList.size()));
                     message.setBaitTheme(theme);
                     lore.add(message.getLegacyMessage());
@@ -137,11 +137,11 @@ public class Bait {
 
             } else if (lineAddition.equals("{lore}")) {
                 BaitFile.getInstance().getLore(this.name).forEach(line -> {
-                    PaperMessage message = EvenMoreFish.getInstance().createMessage(line);
+                    Message message = EvenMoreFish.getInstance().createMessage(line);
                     lore.add(message.getLegacyMessage());
                 });
             } else {
-                PaperMessage message = EvenMoreFish.getInstance().createMessage(lineAddition);
+                Message message = EvenMoreFish.getInstance().createMessage(lineAddition);
                 message.setBaitTheme(theme);
                 lore.add(message.getLegacyMessage());
             }
@@ -215,7 +215,7 @@ public class Bait {
             return;
         }
 
-        PaperMessage message = ConfigMessage.BAIT_USED.getMessage();
+        Message message = ConfigMessage.BAIT_USED.getMessage();
         message.setBait(this.name);
         message.setBaitTheme(this.theme);
         message.send(player);

@@ -1,7 +1,7 @@
 package com.oheers.fish.economy;
 
 import com.oheers.fish.EvenMoreFish;
-import com.oheers.fish.config.messages.PaperMessage;
+import com.oheers.fish.config.messages.Message;
 import com.oheers.fish.api.economy.EconomyType;
 import com.oheers.fish.config.MainConfig;
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
@@ -95,7 +95,7 @@ public class GriefPreventionEconomyType implements EconomyType {
         if (display == null) {
             display = "{amount} Claim Block(s)";
         }
-        PaperMessage message = EvenMoreFish.getInstance().createMessage(display);
+        Message message = EvenMoreFish.getInstance().createMessage(display);
         message.setVariable("{amount}", String.valueOf(worth));
         return message.getLegacyMessage();
     }

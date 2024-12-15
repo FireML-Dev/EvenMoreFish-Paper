@@ -2,7 +2,7 @@ package com.oheers.fish.competition.strategies;
 
 
 import com.oheers.fish.EvenMoreFish;
-import com.oheers.fish.config.messages.PaperMessage;
+import com.oheers.fish.config.messages.Message;
 import com.oheers.fish.competition.Competition;
 import com.oheers.fish.competition.CompetitionEntry;
 import com.oheers.fish.competition.CompetitionStrategy;
@@ -49,13 +49,13 @@ public class SpecificRarityStrategy implements CompetitionStrategy {
     }
 
     @Override
-    public PaperMessage getBeginMessage(@NotNull Competition competition, CompetitionType type) {
+    public Message getBeginMessage(@NotNull Competition competition, CompetitionType type) {
         return getTypeFormat(competition, ConfigMessage.COMPETITION_START);
     }
 
     @Override
-    public @NotNull PaperMessage getTypeFormat(@NotNull Competition competition, ConfigMessage configMessage) {
-        final PaperMessage message = CompetitionStrategy.super.getTypeFormat(competition, configMessage);
+    public @NotNull Message getTypeFormat(@NotNull Competition competition, ConfigMessage configMessage) {
+        final Message message = CompetitionStrategy.super.getTypeFormat(competition, configMessage);
         message.setAmount(Integer.toString(competition.getNumberNeeded()));
         Rarity selectedRarity = competition.getSelectedRarity();
         if (selectedRarity == null) {

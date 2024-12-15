@@ -20,7 +20,7 @@ public class Messages extends ConfigBase {
     }
 
     public String getSTDPrefix() {
-        PaperMessage message = EvenMoreFish.getInstance().createMessage("");
+        Message message = EvenMoreFish.getInstance().createMessage("");
         message.prependMessage(PrefixType.DEFAULT.getPrefix());
         message.appendString("&r");
         return message.getLegacyMessage();

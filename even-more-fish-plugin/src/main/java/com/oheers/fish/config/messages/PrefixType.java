@@ -28,7 +28,7 @@ public enum PrefixType {
      *
      * @return The unformatted prefix, unless the type is NONE.
      */
-    public PaperMessage getPrefix() {
+    public Message getPrefix() {
         if (id == null) {
             return EvenMoreFish.getInstance().createMessage("");
         } else {

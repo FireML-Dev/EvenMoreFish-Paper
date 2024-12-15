@@ -5,7 +5,7 @@ import co.aikar.commands.InvalidCommandArgument;
 import co.aikar.commands.PaperCommandManager;
 import com.github.Anon8281.universalScheduler.UniversalScheduler;
 import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskScheduler;
-import com.oheers.fish.config.messages.PaperMessage;
+import com.oheers.fish.config.messages.Message;
 import com.oheers.fish.addons.AddonManager;
 import com.oheers.fish.addons.DefaultAddons;
 import com.oheers.fish.api.EMFAPI;
@@ -800,12 +800,12 @@ public class EvenMoreFish extends EMFPlugin {
         return createMessage(message).getLegacyMessage();
     }
 
-    public PaperMessage createMessage(@NotNull String message) {
-        return new PaperMessage(message);
+    public Message createMessage(@NotNull String message) {
+        return new Message(message);
     }
 
-    public PaperMessage createMessage(@NotNull List<String> messageList) {
-        return new PaperMessage(messageList);
+    public Message createMessage(@NotNull List<String> messageList) {
+        return new Message(messageList);
     }
 
 }

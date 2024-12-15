@@ -5,7 +5,7 @@ import com.github.Anon8281.universalScheduler.scheduling.tasks.MyScheduledTask;
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.api.EMFCompetitionEndEvent;
 import com.oheers.fish.api.EMFCompetitionStartEvent;
-import com.oheers.fish.config.messages.PaperMessage;
+import com.oheers.fish.config.messages.Message;
 import com.oheers.fish.api.reward.Reward;
 import com.oheers.fish.competition.configs.CompetitionFile;
 import com.oheers.fish.competition.leaderboard.Leaderboard;
@@ -38,7 +38,7 @@ public class Competition {
     private int numberNeeded;
     private String competitionName;
     private boolean adminStarted = false;
-    private PaperMessage startMessage;
+    private Message startMessage;
     private long maxDuration;
     private long timeLeft;
     private Bar statusBar;
@@ -188,7 +188,7 @@ public class Competition {
      */
     private boolean processCompetitionSecond(long timeLeft) {
         if (alertTimes.contains(timeLeft)) {
-            PaperMessage message = getTypeFormat(ConfigMessage.TIME_ALERT);
+            Message message = getTypeFormat(ConfigMessage.TIME_ALERT);
             message.broadcast();
         } else if (timeLeft <= 0) {
             end(false);
@@ -204,7 +204,7 @@ public class Competition {
      * @param configMessage The configmessage to use. Must have the {type} variable in it.
      * @return A message object that's pre-set to be compatible for the time remaining.
      */
-    private @NotNull PaperMessage getTypeFormat(ConfigMessage configMessage) {
+    private @NotNull Message getTypeFormat(ConfigMessage configMessage) {
         return competitionType.getStrategy().getTypeFormat(this, configMessage);
     }
 
@@ -257,7 +257,7 @@ public class Competition {
         }
     }
 
-    private void setPositionColour(int place, PaperMessage message) {
+    private void setPositionColour(int place, Message message) {
         switch (place) {
             case 0 -> message.setPositionColour("&c» &r");
             case 1 -> message.setPositionColour("&c_ &r");
@@ -281,7 +281,7 @@ public class Competition {
         String leaderboardMessage = buildLeaderboardMessage(entries, competitionColours, true, null);
         console.sendMessage(leaderboardMessage);
 
-        PaperMessage message = ConfigMessage.LEADERBOARD_TOTAL_PLAYERS.getMessage();
+        Message message = ConfigMessage.LEADERBOARD_TOTAL_PLAYERS.getMessage();
         message.setAmount(Integer.toString(leaderboard.getSize()));
         message.send(console);
     }
@@ -305,7 +305,7 @@ public class Competition {
         String leaderboardMessage = buildLeaderboardMessage(entries, competitionColours, false, player.getUniqueId());
         player.sendMessage(leaderboardMessage);
 
-        PaperMessage message = ConfigMessage.LEADERBOARD_TOTAL_PLAYERS.getMessage();
+        Message message = ConfigMessage.LEADERBOARD_TOTAL_PLAYERS.getMessage();
         message.setAmount(Integer.toString(leaderboard.getSize()));
         message.send(player);
     }
@@ -327,7 +327,7 @@ public class Competition {
 
         for (CompetitionEntry entry : entries) {
             pos++;
-            PaperMessage message = ConfigMessage.LEADERBOARD_LARGEST_FISH.getMessage();
+            Message message = ConfigMessage.LEADERBOARD_LARGEST_FISH.getMessage();
             message.setPlayer(Bukkit.getOfflinePlayer(entry.getPlayer()));
             message.setPosition(Integer.toString(pos));
 
@@ -416,7 +416,7 @@ public class Competition {
     }
 
     public void singleReward(Player player) {
-        PaperMessage message = getTypeFormat(ConfigMessage.COMPETITION_SINGLE_WINNER);
+        Message message = getTypeFormat(ConfigMessage.COMPETITION_SINGLE_WINNER);
         message.setPlayer(player);
         message.setCompetitionType(competitionType.getTypeVariable().getMessage().getLegacyMessage());
 
@@ -449,7 +449,7 @@ public class Competition {
         return leaderboard;
     }
 
-    public @Nullable PaperMessage getStartMessage() {
+    public @Nullable Message getStartMessage() {
         return startMessage;
     }
 
@@ -465,14 +465,14 @@ public class Competition {
         this.competitionName = competitionName;
     }
 
-    public static @NotNull PaperMessage getNextCompetitionMessage() {
+    public static @NotNull Message getNextCompetitionMessage() {
         if (Competition.isActive()) {
             return ConfigMessage.PLACEHOLDER_TIME_REMAINING_DURING_COMP.getMessage();
         }
 
         int remainingTime = getRemainingTime();
 
-        PaperMessage message = ConfigMessage.PLACEHOLDER_TIME_REMAINING.getMessage();
+        Message message = ConfigMessage.PLACEHOLDER_TIME_REMAINING.getMessage();
         message.setDays(Integer.toString(remainingTime / 1440));
         message.setHours(Integer.toString((remainingTime % 1440) / 60));
         message.setMinutes(Integer.toString((((remainingTime % 1440) % 60) % 60)));

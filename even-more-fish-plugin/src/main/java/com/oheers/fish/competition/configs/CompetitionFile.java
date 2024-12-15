@@ -2,7 +2,7 @@ package com.oheers.fish.competition.configs;
 
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.FishUtils;
-import com.oheers.fish.config.messages.PaperMessage;
+import com.oheers.fish.config.messages.Message;
 import com.oheers.fish.api.reward.Reward;
 import com.oheers.fish.competition.Bar;
 import com.oheers.fish.competition.CompetitionType;
@@ -254,7 +254,7 @@ public class CompetitionFile extends ConfigBase {
     /**
      * @return The prefix for this competition's bossbar.
      */
-    public PaperMessage getBossbarPrefix() {
+    public Message getBossbarPrefix() {
         String prefix = getConfig().getString("bossbar-prefix", "&a&lFishing Contest: ");
         return EvenMoreFish.getInstance().createMessage(prefix);
     }

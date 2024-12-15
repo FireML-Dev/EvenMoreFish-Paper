@@ -6,7 +6,7 @@ import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.FishUtils;
 import com.oheers.fish.addons.AddonManager;
-import com.oheers.fish.config.messages.PaperMessage;
+import com.oheers.fish.config.messages.Message;
 import com.oheers.fish.api.addons.Addon;
 import com.oheers.fish.api.reward.RewardManager;
 import com.oheers.fish.baits.Bait;
@@ -71,7 +71,7 @@ public class AdminCommand extends BaseCommand {
 
         FishUtils.giveItems(Collections.singletonList(fishItem), target);
 
-        PaperMessage message = ConfigMessage.ADMIN_GIVE_PLAYER_FISH.getMessage();
+        Message message = ConfigMessage.ADMIN_GIVE_PLAYER_FISH.getMessage();
         message.setPlayer(target);
         message.setFishCaught(fish.getName());
         message.send(sender);
@@ -205,7 +205,7 @@ public class AdminCommand extends BaseCommand {
         }
 
         FishUtils.giveItems(Collections.singletonList(EvenMoreFish.getInstance().getCustomNBTRod()), player);
-        PaperMessage giveMessage = ConfigMessage.ADMIN_NBT_ROD_GIVEN.getMessage();
+        Message giveMessage = ConfigMessage.ADMIN_NBT_ROD_GIVEN.getMessage();
         giveMessage.setPlayer(player);
         giveMessage.send(sender);
     }
@@ -237,7 +237,7 @@ public class AdminCommand extends BaseCommand {
         ItemStack baitItem = bait.create(player.player);
         baitItem.setAmount(quantity);
         FishUtils.giveItems(Collections.singletonList(baitItem), player.player);
-        PaperMessage message = ConfigMessage.ADMIN_GIVE_PLAYER_BAIT.getMessage();
+        Message message = ConfigMessage.ADMIN_GIVE_PLAYER_BAIT.getMessage();
         message.setPlayer(player.player);
         message.setBait(baitId);
         message.send(sender);
@@ -284,7 +284,7 @@ public class AdminCommand extends BaseCommand {
             fishingRod.setItemMeta(meta);
         }
 
-        PaperMessage message = ConfigMessage.BAITS_CLEARED.getMessage();
+        Message message = ConfigMessage.BAITS_CLEARED.getMessage();
         message.setAmount(Integer.toString(totalDeleted));
         message.send(player);
     }
@@ -332,7 +332,7 @@ public class AdminCommand extends BaseCommand {
 
         msgString += "Database Engine: " + getDatabaseVersion();
 
-        PaperMessage msg = EvenMoreFish.getInstance().createMessage(msgString);
+        Message msg = EvenMoreFish.getInstance().createMessage(msgString);
         msg.send(sender);
     }
 

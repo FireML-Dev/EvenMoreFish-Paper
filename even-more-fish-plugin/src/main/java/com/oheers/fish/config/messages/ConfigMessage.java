@@ -297,8 +297,8 @@ public enum ConfigMessage {
         return prefixType;
     }
 
-    public PaperMessage getMessage() {
-        PaperMessage message = EvenMoreFish.getInstance().createMessage("");
+    public Message getMessage() {
+        Message message = EvenMoreFish.getInstance().createMessage("");
         if (isListForm()) {
             List<String> list = getStringList(getNormalList(), getId());
             for (String line : list) {

@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.regex.Matcher;
 
-public class PaperMessage {
+public class Message {
 
     private static final LegacyComponentSerializer legacySerializer = LegacyComponentSerializer.builder()
             .hexColors()
@@ -29,11 +29,11 @@ public class PaperMessage {
     private boolean canSilent = false;
     private OfflinePlayer relevantPlayer;
 
-    public PaperMessage(@NotNull String message) {
+    public Message(@NotNull String message) {
         this.message = formatColours(message);
     }
 
-    public PaperMessage(@NotNull List<String> messageList) {
+    public Message(@NotNull List<String> messageList) {
         this.message = String.join("\n", messageList.stream().map(this::formatColours).toList());
     }
 
@@ -106,7 +106,7 @@ public class PaperMessage {
         this.message = formatColours(message);
     }
 
-    public void setMessage(@NotNull PaperMessage message) {
+    public void setMessage(@NotNull Message message) {
         this.message = message.getRawMessage();
     }
 
@@ -169,7 +169,7 @@ public class PaperMessage {
      * Adds the provided message to the end of this message.
      * @param message The message to append
      */
-    public void appendMessage(@NotNull PaperMessage message) {
+    public void appendMessage(@NotNull Message message) {
         appendString(message.getRawMessage());
     }
 
@@ -185,9 +185,9 @@ public class PaperMessage {
      * Adds the provided messages to the end of this message.
      * @param messages The messages to append
      */
-    public void appendMessageList(@NotNull List<PaperMessage> messages) {
+    public void appendMessageList(@NotNull List<Message> messages) {
         StringBuilder newMessage = new StringBuilder(this.message);
-        for (PaperMessage message : messages) {
+        for (Message message : messages) {
             newMessage.append(message.getRawMessage());
         }
         this.message = newMessage.toString();
@@ -205,7 +205,7 @@ public class PaperMessage {
      * Adds the provided message to the start of this message.
      * @param message The message to prepend
      */
-    public void prependMessage(@NotNull PaperMessage message) {
+    public void prependMessage(@NotNull Message message) {
         prependString(message.getRawMessage());
     }
 
@@ -221,9 +221,9 @@ public class PaperMessage {
      * Adds the provided messages to the start of this message.
      * @param messages The messages to prepend
      */
-    public void prependMessageList(@NotNull List<PaperMessage> messages) {
+    public void prependMessageList(@NotNull List<Message> messages) {
         StringBuilder newMessage = new StringBuilder();
-        for (PaperMessage message : messages) {
+        for (Message message : messages) {
             newMessage.append(message.getRawMessage());
         }
         this.message = newMessage + this.message;

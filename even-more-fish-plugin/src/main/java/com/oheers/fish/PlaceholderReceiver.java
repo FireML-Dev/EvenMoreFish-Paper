@@ -1,6 +1,6 @@
 package com.oheers.fish;
 
-import com.oheers.fish.config.messages.PaperMessage;
+import com.oheers.fish.config.messages.Message;
 import com.oheers.fish.competition.Competition;
 import com.oheers.fish.competition.CompetitionType;
 import com.oheers.fish.config.messages.ConfigMessage;
@@ -211,7 +211,7 @@ public class PlaceholderReceiver extends PlaceholderExpansion {
                     fish = null;
                 }
                 if (fish != null) {
-                    PaperMessage message = ConfigMessage.PLACEHOLDER_FISH_FORMAT.getMessage();
+                    Message message = ConfigMessage.PLACEHOLDER_FISH_FORMAT.getMessage();
                     if (fish.getLength() == -1) {
                         message.setMessage(ConfigMessage.PLACEHOLDER_FISH_LENGTHLESS_FORMAT.getMessage());
                     } else {
@@ -237,7 +237,7 @@ public class PlaceholderReceiver extends PlaceholderExpansion {
                     return ConfigMessage.PLACEHOLDER_NO_FISH_IN_PLACE.getMessage().getLegacyMessage();
                 }
                 
-                PaperMessage message = ConfigMessage.PLACEHOLDER_FISH_MOST_FORMAT.getMessage();
+                Message message = ConfigMessage.PLACEHOLDER_FISH_MOST_FORMAT.getMessage();
                 message.setAmount(Integer.toString((int) value));
                 return message.getLegacyMessage();
             }

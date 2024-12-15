@@ -5,7 +5,7 @@ import com.gmail.nossr50.util.player.UserManager;
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.FishUtils;
 import com.oheers.fish.api.EMFFishEvent;
-import com.oheers.fish.config.messages.PaperMessage;
+import com.oheers.fish.config.messages.Message;
 import com.oheers.fish.baits.Bait;
 import com.oheers.fish.baits.BaitNBTManager;
 import com.oheers.fish.competition.Competition;
@@ -150,7 +150,7 @@ public class FishingProcessor implements Listener {
         if (BaitFile.getInstance().getBaitCatchPercentage() > 0) {
             if (EvenMoreFish.getInstance().getRandom().nextDouble() * 100.0 < BaitFile.getInstance().getBaitCatchPercentage()) {
                 Bait caughtBait = BaitNBTManager.randomBaitCatch();
-                PaperMessage message = ConfigMessage.BAIT_CAUGHT.getMessage();
+                Message message = ConfigMessage.BAIT_CAUGHT.getMessage();
                 message.setBaitTheme(caughtBait.getTheme());
                 message.setBait(caughtBait.getName());
                 message.setPlayer(player);
@@ -205,7 +205,7 @@ public class FishingProcessor implements Listener {
             EvenMoreFish.getInstance().getLogger().warning("Fish Length:" + fish.getLength());
             String rarity = FishUtils.translateColorCodes(fish.getRarity().getId());
 
-            PaperMessage message = ConfigMessage.FISH_CAUGHT.getMessage();
+            Message message = ConfigMessage.FISH_CAUGHT.getMessage();
             message.setPlayer(player);
             message.setRarityColour(fish.getRarity().getColour());
             message.setRarity(rarity);
