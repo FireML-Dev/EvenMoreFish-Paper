@@ -9,7 +9,6 @@ import com.oheers.fish.config.messages.Message;
 import com.oheers.fish.addons.AddonManager;
 import com.oheers.fish.addons.DefaultAddons;
 import com.oheers.fish.api.EMFAPI;
-import com.oheers.fish.api.adapter.PlatformAdapter;
 import com.oheers.fish.api.economy.Economy;
 import com.oheers.fish.api.plugin.EMFPlugin;
 import com.oheers.fish.api.requirement.RequirementManager;
@@ -106,7 +105,6 @@ public class EvenMoreFish extends EMFPlugin {
 
     private static EvenMoreFish instance;
     private static TaskScheduler scheduler;
-    private static PlatformAdapter platformAdapter;
     private EMFAPI api;
 
     private AddonManager addonManager;

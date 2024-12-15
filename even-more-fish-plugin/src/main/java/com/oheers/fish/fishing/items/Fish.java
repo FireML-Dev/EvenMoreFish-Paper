@@ -140,9 +140,9 @@ public class Fish implements Cloneable {
         if (fishMeta != null) {
             NBT.modify(fish, nbt -> {
                 nbt.modifyMeta((readOnlyNbt, meta) -> {
-                    meta.setDisplayName(FishUtils.translateColorCodes(getDisplayName()));
+                    meta.displayName(EvenMoreFish.getInstance().createMessage(getDisplayName()).getComponentMessage());
                     if (!section.getBoolean("disable-lore", false)) {
-                        meta.setLore(getFishLore());
+                        meta.lore(EvenMoreFish.getInstance().createMessage(getFishLore()).getComponentListMessage());
                     }
                     meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
                     meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);

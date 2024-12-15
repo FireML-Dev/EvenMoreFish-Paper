@@ -2,6 +2,7 @@ package com.oheers.fish.utils;
 
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.FishUtils;
+import com.oheers.fish.competition.Competition;
 import com.oheers.fish.config.messages.Message;
 import com.oheers.fish.api.addons.exceptions.IncorrectAssignedMaterialException;
 import com.oheers.fish.api.addons.exceptions.NoPrefixException;
@@ -9,6 +10,7 @@ import com.oheers.fish.config.MainConfig;
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.NbtApiException;
 import dev.dejvokep.boostedyaml.block.implementation.Section;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.enchantments.Enchantment;
@@ -550,14 +552,11 @@ public class ItemFactory {
         List<String> loreConfig = this.configurationFile.getStringList(configLocation + "lore");
         if (loreConfig.isEmpty()) return;
 
-        ItemMeta meta = product.getItemMeta();
-        if (meta == null) return;
-
-        Message lore = EvenMoreFish.getInstance().createMessage(loreConfig);
-        lore.setVariables(replacements);
-
-        meta.setLore(lore.getLegacyListMessage());
-        product.setItemMeta(meta);
+        product.editMeta(meta -> {
+            Message lore = EvenMoreFish.getInstance().createMessage(loreConfig);
+            lore.setVariables(replacements);
+            meta.lore(lore.getComponentListMessage());
+        });
     }
 
     /**
@@ -570,19 +569,17 @@ public class ItemFactory {
         if (displayName == null && this.displayName != null) displayName = this.displayName;
 
         if (displayName != null) {
-            ItemMeta meta = product.getItemMeta();
+            final String finalDisplayName = displayName;
 
-            if (meta != null) {
-                if (displayName.isEmpty()) {
-                    meta.setDisplayName("");
+            product.editMeta(meta -> {
+                if (finalDisplayName.isEmpty()) {
+                    meta.displayName(Component.empty());
                 } else {
-                    Message display = EvenMoreFish.getInstance().createMessage(displayName);
+                    Message display = EvenMoreFish.getInstance().createMessage(finalDisplayName);
                     display.setVariables(replacements);
-                    meta.setDisplayName(display.getLegacyMessage());
+                    meta.displayName(display.getComponentMessage());
                 }
-            }
-
-            product.setItemMeta(meta);
+            });
         }
     }
 

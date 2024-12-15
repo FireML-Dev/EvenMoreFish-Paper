@@ -9,6 +9,7 @@ import com.oheers.fish.fishing.items.Fish;
 import com.oheers.fish.fishing.items.FishManager;
 import com.oheers.fish.fishing.items.Rarity;
 import com.oheers.fish.utils.ItemFactory;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -78,7 +79,7 @@ public class Bait {
 
         ItemMeta meta = baitItem.getItemMeta();
         if (meta != null) {
-            meta.setLore(createBoostLore());
+            meta.lore(createBoostLore());
         }
         baitItem.setItemMeta(meta);
 
@@ -109,9 +110,9 @@ public class Bait {
      * This fetches the boost's lore from the config and inserts the boost-rates into the {boosts} variable. This needs
      * to be called after the bait theme is set and the boosts have been initialized, since it uses those variables.
      */
-    private List<String> createBoostLore() {
+    private List<Component> createBoostLore() {
 
-        List<String> lore = new ArrayList<>();
+        List<Component> lore = new ArrayList<>();
 
         for (String lineAddition : BaitFile.getInstance().getBaitLoreFormat()) {
             if (lineAddition.equals("{boosts}")) {
@@ -125,25 +126,25 @@ public class Bait {
                     }
                     message.setAmount(Integer.toString(rarityList.size()));
                     message.setBaitTheme(theme);
-                    lore.add(message.getLegacyMessage());
+                    lore.add(message.getComponentMessage());
                 }
 
                 if (!fishList.isEmpty()) {
                     Message message = EvenMoreFish.getInstance().createMessage(BaitFile.getInstance().getBoostFishFormat());
                     message.setAmount(Integer.toString(fishList.size()));
                     message.setBaitTheme(theme);
-                    lore.add(message.getLegacyMessage());
+                    lore.add(message.getComponentMessage());
                 }
 
             } else if (lineAddition.equals("{lore}")) {
                 BaitFile.getInstance().getLore(this.name).forEach(line -> {
                     Message message = EvenMoreFish.getInstance().createMessage(line);
-                    lore.add(message.getLegacyMessage());
+                    lore.add(message.getComponentMessage());
                 });
             } else {
                 Message message = EvenMoreFish.getInstance().createMessage(lineAddition);
                 message.setBaitTheme(theme);
-                lore.add(message.getLegacyMessage());
+                lore.add(message.getComponentMessage());
             }
         }
 

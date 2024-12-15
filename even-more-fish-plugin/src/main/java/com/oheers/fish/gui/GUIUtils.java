@@ -14,6 +14,7 @@ import com.oheers.fish.utils.ItemUtils;
 import de.themoep.inventorygui.*;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.block.implementation.Section;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
@@ -126,7 +127,7 @@ public class GUIUtils {
         if (meta == null) {
             return stack;
         }
-        meta.setDisplayName("");
+        meta.displayName(Component.empty());
         stack.setItemMeta(meta);
         return stack;
     }

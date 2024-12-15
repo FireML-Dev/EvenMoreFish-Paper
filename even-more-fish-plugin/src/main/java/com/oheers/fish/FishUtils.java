@@ -22,6 +22,7 @@ import com.sk89q.worldguard.protection.regions.RegionQuery;
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;
 import de.tr7zw.changeme.nbtapi.utils.MinecraftVersion;
+import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
@@ -33,6 +34,7 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.awt.*;
 import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.List;
@@ -337,7 +339,8 @@ public class FishUtils {
 
     public static void broadcastFishMessage(Message message, Player referencePlayer, boolean actionBar) {
 
-        String formatted = message.getLegacyMessage();
+        String formatted = message.getRawMessage();
+        Component formattedComponent = message.getComponentMessage();
         Competition activeComp = Competition.getCurrentlyActive();
 
         if (formatted.isEmpty() || activeComp == null) {
@@ -356,7 +359,7 @@ public class FishUtils {
                         continue;
                     }
                     if (player.getInventory().getItemInMainHand().getType().equals(Material.FISHING_ROD) || player.getInventory().getItemInOffHand().getType().equals(Material.FISHING_ROD)) {
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(formatted));
+                        player.sendActionBar(formattedComponent);
                     }
                 }
             } else {
@@ -365,7 +368,7 @@ public class FishUtils {
                         continue;
                     }
                     if (player.getInventory().getItemInMainHand().getType().equals(Material.FISHING_ROD) || player.getInventory().getItemInOffHand().getType().equals(Material.FISHING_ROD)) {
-                        player.sendMessage(formatted);
+                        player.sendMessage(formattedComponent);
                     }
                 }
             }
@@ -376,14 +379,14 @@ public class FishUtils {
                     if (rangeSquared > -1 && !isWithinRange(referencePlayer, player, rangeSquared)) {
                         continue;
                     }
-                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(formatted));
+                    player.sendActionBar(formattedComponent);
                 }
             } else {
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     if (rangeSquared > -1 && !isWithinRange(referencePlayer, player, rangeSquared)) {
                         continue;
                     }
-                    player.sendMessage(formatted);
+                    player.sendMessage(formattedComponent);
                 }
             }
         }

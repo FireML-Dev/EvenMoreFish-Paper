@@ -10,6 +10,7 @@ import com.oheers.fish.utils.nbt.NbtKeys;
 import com.oheers.fish.utils.nbt.NbtUtils;
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -121,9 +122,7 @@ public class BaitNBTManager {
         if (isBaitedRod(item)) {
             try {
                 if (doingLoreStuff) {
-                    ItemMeta meta = item.getItemMeta();
-                    meta.setLore(deleteOldLore(item));
-                    item.setItemMeta(meta);
+                    item.editMeta(meta -> meta.lore(deleteOldLore(item)));
                 }
             } catch (IndexOutOfBoundsException exception) {
                 EvenMoreFish.getInstance()
@@ -164,9 +163,7 @@ public class BaitNBTManager {
                 if (getNumBaitsApplied(item) >= BaitFile.getInstance().getMaxBaits()) {
                     // the lore's been taken out, we're not going to be doing anymore here, so we're just re-adding it now.
                     if (doingLoreStuff) {
-                        ItemMeta rodMeta = item.getItemMeta();
-                        rodMeta.setLore(newApplyLore(item));
-                        item.setItemMeta(rodMeta);
+                        item.editMeta(meta -> meta.lore(newApplyLore(item)));
                     }
                     throw new MaxBaitsReachedException("Max baits reached.", new ApplicationResult(item, cursorModifier.get()));
                 }
@@ -209,9 +206,7 @@ public class BaitNBTManager {
         }
 
         if (doingLoreStuff && !combined.isEmpty()) {
-            ItemMeta meta = item.getItemMeta();
-            meta.setLore(newApplyLore(item));
-            item.setItemMeta(meta);
+            item.editMeta(meta -> meta.lore(newApplyLore(item)));
         }
 
         if (maxBait.get()) {
@@ -351,13 +346,13 @@ public class BaitNBTManager {
         return totalDeleted;
     }
 
-    public static List<String> newApplyLore(ItemStack itemStack) {
+    public static List<Component> newApplyLore(ItemStack itemStack) {
         if (itemStack.getItemMeta() == null) {
             return Collections.emptyList();
         }
         ItemMeta meta = itemStack.getItemMeta();
 
-        List<String> lore = meta.getLore();
+        List<Component> lore = meta.lore();
         if (lore == null) {
             lore = new ArrayList<>();
         }
@@ -378,19 +373,19 @@ public class BaitNBTManager {
                     Message message = EvenMoreFish.getInstance().createMessage(BaitFile.getInstance().getBaitFormat());
                     message.setAmount(bait.split(":")[1]);
                     message.setBait(getBaitFormatted(bait.split(":")[0]));
-                    lore.add(message.getLegacyMessage());
+                    lore.add(message.getComponentMessage());
                 }
 
                 if (BaitFile.getInstance().showUnusedBaitSlots()) {
                     for (int i = baitCount; i < BaitFile.getInstance().getMaxBaits(); i++) {
-                        lore.add(FishUtils.translateColorCodes(BaitFile.getInstance().unusedBaitSlotFormat()));
+                        lore.add(EvenMoreFish.getInstance().createMessage(BaitFile.getInstance().unusedBaitSlotFormat()).getComponentMessage());
                     }
                 }
             } else {
                 Message message = EvenMoreFish.getInstance().createMessage(lineAddition);
                 message.setCurrentBaits(Integer.toString(getNumBaitsApplied(itemStack)));
                 message.setMaxBaits(Integer.toString(BaitFile.getInstance().getMaxBaits()));
-                lore.add(message.getLegacyMessage());
+                lore.add(message.getComponentMessage());
             }
         }
 
@@ -405,12 +400,12 @@ public class BaitNBTManager {
      * @throws IndexOutOfBoundsException When the fishing rod doesn't have enough lines of lore to delete, this could be
      *                                   caused by a modification to the format in the baits.yml config.
      */
-    public static List<String> deleteOldLore(ItemStack itemStack) throws IndexOutOfBoundsException {
+    public static List<Component> deleteOldLore(ItemStack itemStack) throws IndexOutOfBoundsException {
         if (!itemStack.hasItemMeta() || itemStack.getItemMeta() == null || !itemStack.getItemMeta().hasLore()) {
             return Collections.emptyList();
         }
 
-        List<String> lore = itemStack.getItemMeta().getLore();
+        List<Component> lore = itemStack.getItemMeta().lore();
         if (lore == null) {
             return Collections.emptyList();
         }
