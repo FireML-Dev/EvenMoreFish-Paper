@@ -6,7 +6,7 @@ import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.FishUtils;
 import com.oheers.fish.addons.AddonManager;
-import com.oheers.fish.adapter.PaperMessage;
+import com.oheers.fish.config.messages.PaperMessage;
 import com.oheers.fish.api.addons.Addon;
 import com.oheers.fish.api.reward.RewardManager;
 import com.oheers.fish.baits.Bait;

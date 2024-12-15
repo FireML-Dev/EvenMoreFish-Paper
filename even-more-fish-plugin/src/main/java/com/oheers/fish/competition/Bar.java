@@ -1,7 +1,7 @@
 package com.oheers.fish.competition;
 
 import com.oheers.fish.FishUtils;
-import com.oheers.fish.adapter.PaperMessage;
+import com.oheers.fish.config.messages.PaperMessage;
 import com.oheers.fish.config.MainConfig;
 import com.oheers.fish.config.messages.ConfigMessage;
 import org.bukkit.Bukkit;

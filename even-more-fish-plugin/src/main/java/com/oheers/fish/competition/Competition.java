@@ -5,7 +5,7 @@ import com.github.Anon8281.universalScheduler.scheduling.tasks.MyScheduledTask;
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.api.EMFCompetitionEndEvent;
 import com.oheers.fish.api.EMFCompetitionStartEvent;
-import com.oheers.fish.adapter.PaperMessage;
+import com.oheers.fish.config.messages.PaperMessage;
 import com.oheers.fish.api.reward.Reward;
 import com.oheers.fish.competition.configs.CompetitionFile;
 import com.oheers.fish.competition.leaderboard.Leaderboard;

@@ -1,4 +1,4 @@
-package com.oheers.fish.adapter;
+package com.oheers.fish.config.messages;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;

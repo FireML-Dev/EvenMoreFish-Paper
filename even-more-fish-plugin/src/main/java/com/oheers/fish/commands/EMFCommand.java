@@ -5,7 +5,7 @@ import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import com.oheers.fish.EvenMoreFish;
-import com.oheers.fish.adapter.PaperMessage;
+import com.oheers.fish.config.messages.PaperMessage;
 import com.oheers.fish.api.economy.Economy;
 import com.oheers.fish.competition.Competition;
 import com.oheers.fish.config.messages.ConfigMessage;

@@ -1,7 +1,7 @@
 package com.oheers.fish.competition;
 
 import com.oheers.fish.FishUtils;
-import com.oheers.fish.adapter.PaperMessage;
+import com.oheers.fish.config.messages.PaperMessage;
 import com.oheers.fish.competition.leaderboard.Leaderboard;
 import com.oheers.fish.config.messages.ConfigMessage;
 import com.oheers.fish.fishing.items.Fish;

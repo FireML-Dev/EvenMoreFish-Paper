@@ -1,7 +1,6 @@
 package com.oheers.fish.config.messages;
 
 import com.oheers.fish.EvenMoreFish;
-import com.oheers.fish.adapter.PaperMessage;
 
 import java.util.Arrays;
 import java.util.Collections;

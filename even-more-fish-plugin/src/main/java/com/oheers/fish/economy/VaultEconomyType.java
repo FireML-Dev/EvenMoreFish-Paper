@@ -1,7 +1,7 @@
 package com.oheers.fish.economy;
 
 import com.oheers.fish.EvenMoreFish;
-import com.oheers.fish.adapter.PaperMessage;
+import com.oheers.fish.config.messages.PaperMessage;
 import com.oheers.fish.api.economy.EconomyType;
 import com.oheers.fish.config.MainConfig;
 import com.oheers.fish.config.messages.ConfigMessage;

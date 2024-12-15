@@ -3,7 +3,7 @@ package com.oheers.fish.database.migrate;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.oheers.fish.EvenMoreFish;
-import com.oheers.fish.adapter.PaperMessage;
+import com.oheers.fish.config.messages.PaperMessage;
 import com.oheers.fish.config.messages.PrefixType;
 import com.oheers.fish.database.DatabaseUtil;
 import com.oheers.fish.database.DatabaseV3;
