@@ -23,14 +23,14 @@ import com.oheers.fish.fishing.items.FishManager;
 import com.oheers.fish.fishing.items.Rarity;
 import com.oheers.fish.permissions.AdminPerms;
 import de.tr7zw.changeme.nbtapi.NBT;
-import net.md_5.bungee.api.chat.*;
-import net.md_5.bungee.api.chat.hover.content.Text;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -93,31 +93,35 @@ public class AdminCommand extends BaseCommand {
     @Subcommand("list")
     public class ListSubCommand extends BaseCommand {
 
+        // TODO update to Adventure
+        @SuppressWarnings("deprecation")
         @Subcommand("fish")
         @CommandCompletion("@rarities")
         @Description("%desc_list_fish")
         public void onFish(final CommandSender sender, final Rarity rarity) {
-            BaseComponent[] baseComponent = TextComponent.fromLegacyText(FishUtils.translateColorCodes(rarity.getColour() + rarity.getDisplayName()) + " ");
+            net.md_5.bungee.api.chat.BaseComponent[] baseComponent = net.md_5.bungee.api.chat.TextComponent.fromLegacyText(FishUtils.translateColorCodes(rarity.getColour() + rarity.getDisplayName()) + " ");
             for (Fish fish : rarity.getFishList()) {
-                BaseComponent[] textComponent = TextComponent.fromLegacyText(FishUtils.translateColorCodes(rarity.getColour() + "[" + fish.getDisplayName() + rarity.getColour() + "] "));
-                for (BaseComponent component : textComponent) {
-                    component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(TextComponent.fromLegacyText("Click to receive fish"))));
-                    component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/emf admin fish " + rarity.getId() + " " + fish.getName().replace(" ", "_")));
+                net.md_5.bungee.api.chat.BaseComponent[] textComponent = net.md_5.bungee.api.chat.TextComponent.fromLegacyText(FishUtils.translateColorCodes(rarity.getColour() + "[" + fish.getDisplayName() + rarity.getColour() + "] "));
+                for (net.md_5.bungee.api.chat.BaseComponent component : textComponent) {
+                    component.setHoverEvent(new net.md_5.bungee.api.chat.HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT, new net.md_5.bungee.api.chat.hover.content.Text(net.md_5.bungee.api.chat.TextComponent.fromLegacyText("Click to receive fish"))));
+                    component.setClickEvent(new net.md_5.bungee.api.chat.ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.RUN_COMMAND, "/emf admin fish " + rarity.getId() + " " + fish.getName().replace(" ", "_")));
                     baseComponent[0].addExtra(component);
                 }
             }
             sender.spigot().sendMessage(baseComponent);
         }
 
+        // TODO update to Adventure
+        @SuppressWarnings("deprecation")
         @Subcommand("rarities")
         @Description("%desc_list_rarities")
         public void onRarity(final CommandSender sender) {
-            BaseComponent[] baseComponent = TextComponent.fromLegacyText("");
+            net.md_5.bungee.api.chat.BaseComponent[] baseComponent = net.md_5.bungee.api.chat.TextComponent.fromLegacyText("");
             for (Rarity rarity : FishManager.getInstance().getRarityMap().values()) {
-                BaseComponent[] textComponent = TextComponent.fromLegacyText(FishUtils.translateColorCodes(rarity.getColour() + "[" + rarity.getDisplayName() + "] "));
-                for (BaseComponent component : textComponent) {
-                    component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(TextComponent.fromLegacyText("Click to view " + rarity.getDisplayName() + " fish."))));
-                    component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/emf admin list fish " + rarity.getId()));
+                net.md_5.bungee.api.chat.BaseComponent[] textComponent = net.md_5.bungee.api.chat.TextComponent.fromLegacyText(FishUtils.translateColorCodes(rarity.getColour() + "[" + rarity.getDisplayName() + "] "));
+                for (net.md_5.bungee.api.chat.BaseComponent component : textComponent) {
+                    component.setHoverEvent(new net.md_5.bungee.api.chat.HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT, new net.md_5.bungee.api.chat.hover.content.Text(net.md_5.bungee.api.chat.TextComponent.fromLegacyText("Click to view " + rarity.getDisplayName() + " fish."))));
+                    component.setClickEvent(new net.md_5.bungee.api.chat.ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.RUN_COMMAND, "/emf admin list fish " + rarity.getId()));
                     baseComponent[0].addExtra(component);
                 }
             }
@@ -278,10 +282,10 @@ public class AdminCommand extends BaseCommand {
 
         int totalDeleted = BaitNBTManager.deleteAllBaits(fishingRod);
         if (totalDeleted > 0) {
-            ItemMeta meta = fishingRod.getItemMeta();
-            List<String> updatedLore = BaitNBTManager.deleteOldLore(fishingRod);
-            meta.setLore(updatedLore);
-            fishingRod.setItemMeta(meta);
+            fishingRod.editMeta(meta -> {
+                List<Component> updatedLore = BaitNBTManager.deleteOldLore(fishingRod);
+                meta.lore(updatedLore);
+            });
         }
 
         Message message = ConfigMessage.BAITS_CLEARED.getMessage();
@@ -382,17 +386,19 @@ public class AdminCommand extends BaseCommand {
         return "V3";
     }
 
+    // TODO update to Adventure
+    @SuppressWarnings("deprecation")
     @Subcommand("rewardtypes")
     @Description("%desc_admin_rewardtypes")
     public void onRewardTypes(final CommandSender sender) {
-        TextComponent message = new TextComponent(ConfigMessage.ADMIN_LIST_REWARD_TYPES.getMessage().getLegacyMessage());
-        ComponentBuilder builder = new ComponentBuilder(message);
+        net.md_5.bungee.api.chat.TextComponent message = new net.md_5.bungee.api.chat.TextComponent(ConfigMessage.ADMIN_LIST_REWARD_TYPES.getMessage().getLegacyMessage());
+        net.md_5.bungee.api.chat.ComponentBuilder builder = new net.md_5.bungee.api.chat.ComponentBuilder(message);
 
         RewardManager.getInstance().getRegisteredRewardTypes().forEach(rewardType -> {
-            TextComponent component = new TextComponent(rewardType.getIdentifier());
-            component.setHoverEvent(new HoverEvent(
-                    HoverEvent.Action.SHOW_TEXT,
-                    new Text(TextComponent.fromLegacyText(
+            net.md_5.bungee.api.chat.TextComponent component = new net.md_5.bungee.api.chat.TextComponent(rewardType.getIdentifier());
+            component.setHoverEvent(new net.md_5.bungee.api.chat.HoverEvent(
+                    net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT,
+                    new net.md_5.bungee.api.chat.hover.content.Text(net.md_5.bungee.api.chat.TextComponent.fromLegacyText(
                             "Author: " + rewardType.getAuthor() + "\n" +
                                     "Registered Plugin: " + rewardType.getPlugin().getName()
                     ))
@@ -422,12 +428,10 @@ public class AdminCommand extends BaseCommand {
         }
         ItemStack handItem = player.getInventory().getItemInMainHand();
         String handItemNbt = NBT.itemStackToNBT(handItem).toString();
-        TextComponent component = new TextComponent(handItemNbt);
-        component.setHoverEvent(new HoverEvent(
-                HoverEvent.Action.SHOW_TEXT, new Text(TextComponent.fromLegacyText("Click to copy to clipboard."))
-        ));
-        component.setClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, handItemNbt));
-        player.spigot().sendMessage(component);
+        Component component = Component.text(handItemNbt)
+                .hoverEvent(HoverEvent.showText(Component.text("Click to copy to clipboard.")))
+                .clickEvent(ClickEvent.copyToClipboard(handItemNbt));
+        player.sendMessage(component);
     }
 
 }
