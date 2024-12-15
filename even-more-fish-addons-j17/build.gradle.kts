@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly(libs.spigot.api)
+    compileOnly(libs.paper.api)
     compileOnly(libs.oraxen)
     compileOnly(libs.ecoitems.api)
     compileOnly(libs.ecoitems.libreforge)

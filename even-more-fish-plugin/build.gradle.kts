@@ -38,13 +38,14 @@ repositories {
     maven("https://repo.firedev.uk/repository/maven-public/")
     maven("https://repo.essentialsx.net/releases/")
     maven("https://repo.aikar.co/content/groups/aikar/")
+    maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
     api(project(":even-more-fish-api"))
     implementation(project(":even-more-fish-paper"))
 
-    compileOnly(libs.spigot.api)
+    compileOnly(libs.paper.api)
     compileOnly(libs.vault.api)
     compileOnly(libs.placeholder.api)
 
