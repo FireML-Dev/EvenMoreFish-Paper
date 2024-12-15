@@ -504,7 +504,7 @@ public class Message {
      * Sets the competition type, checking against the values for each type stored in messages.yml to replace the {type}
      * variable.
      *
-     * @param type The competition type.
+     * @param typeString The competition type.
      */
     public void setCompetitionType(@NotNull final String typeString) {
         setVariable("{type}", typeString);
