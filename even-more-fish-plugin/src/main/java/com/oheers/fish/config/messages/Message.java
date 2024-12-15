@@ -79,8 +79,22 @@ public class Message {
         return miniMessage.deserialize(getRawMessage());
     }
 
+    public List<Component> getComponentListMessage() {
+        formatVariables();
+        formatPlaceholderAPI();
+
+        return Arrays.stream(getRawMessage().split("\n")).map(miniMessage::deserialize).toList();
+    }
+
     public String getLegacyMessage() {
         return legacySerializer.serialize(getComponentMessage());
+    }
+
+    /**
+     * @return The formatted message as a legacy string list, both colors and variables will be formatted.
+     */
+    public @NotNull List<String> getLegacyListMessage() {
+        return Arrays.asList(getLegacyMessage().split("\n"));
     }
 
     public void formatPlaceholderAPI() {
@@ -148,13 +162,6 @@ public class Message {
      */
     public @NotNull List<String> getRawListMessage() {
         return Arrays.asList(this.message.split("\n"));
-    }
-
-    /**
-     * @return The formatted message as a legacy string list, both colors and variables will be formatted.
-     */
-    public @NotNull List<String> getLegacyListMessage() {
-        return Arrays.asList(getLegacyMessage().split("\n"));
     }
 
     /**
